@@ -3,19 +3,19 @@ const path = require('path');
 const http =require('http');
 const socketio = require('socket.io');
 
-const fromatMessage = require('./public/utils/messages.js')
+const fromatMessage = require('./utils/messages.js')
 const {
     userJoin,
     getCurrentUser,
      userLeave,
      getRoomUsers   
-    }  = require('./public/utils/users.js')
+    }  = require('./utils/users.js')
 //to use app directly we are using server
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 //set static folder
-app.use(express.static(path.join(__dirname,'public')))
+app.use(express.static(path.join(__dirname)))
 const botName='admin'
 //Run when clients connects
 io.on('connection',socket => {
