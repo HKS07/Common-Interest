@@ -2,8 +2,6 @@ const express = require('express');
 const path = require('path');
 const http =require('http');
 const socketio = require('socket.io');
-// const { isObject } = require('util');
-// const { EOF } = require('dns');
 
 const fromatMessage = require('./public/utils/messages.js')
 const {
@@ -26,10 +24,10 @@ io.on('connection',socket => {
         socket.join(user.room)
         // console.log('New Connection...');
      //emit will help to transfer event back and forth to server or to our main.js 
-        socket.emit('message',fromatMessage(botName,'Or aa gya deshatgardi karne..'))
+        // socket.emit('message',fromatMessage(botName,'You have entered the chat..'))
         //send when user connects 
-        //difference between emit and broadcast is that it will send meassage to everyone except particular user
-        socket.broadcast.to(user.room).emit('message',fromatMessage(botName,`${user.username} the great rehpadu entered the chat!`))
+        //difference between emit and broadcast is that it will send meassage to everyone except particular userc
+        socket.broadcast.to(user.room).emit('message',fromatMessage(botName,`${user.username} has entered the chat!`))
 
             //send user and room info
         io.to(user.room).emit('roomUsers',{
@@ -51,7 +49,7 @@ io.on('connection',socket => {
         const user = userLeave(socket.id)
         if(user)
             {
-                io.to(user.room).emit('message',fromatMessage(botName,`${user.username} ko tumne bgha dia...`))
+                io.to(user.room).emit('message',fromatMessage(botName,`${user.username} has left the chat...`))
             }        //io.emit() send to everyone
                //send user and room info
             io.to(user.room).emit('roomUsers',{
